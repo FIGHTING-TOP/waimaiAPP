@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import headTop from '../../header/head'
-import {position, hotcity, groupcity} from '../../../service/getData'
+import headTop from '../header/head'
+import {position, hotcity, groupcity} from '../../service/getData'
 
 export default {
     data(){
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../../../assets/css/mixin';
+    @import '../../assets/css/mixin';
     .head_logo{
         left: 0.4rem;
         font-weight: 400;

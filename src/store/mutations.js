@@ -28,6 +28,7 @@ import {
 	SAVE_QUESTION,
 	ADD_ADDRESS,
 	BUY_CART,
+  SET_TRANSITION_NAME,
 } from './mutation-types.js'
 
 import {setStore, getStore} from '../config/mUtils'
@@ -168,7 +169,7 @@ export default {
 	//保存geohash
 	[SAVE_GEOHASH](state, geohash) {
 		state.geohash = geohash;
-		
+
 	},
 	//确认订单页添加新的的地址
 	[CONFIRM_ADDRESS](state, newAddress) {
@@ -240,5 +241,7 @@ export default {
 	[BUY_CART](state, price) {
 		state.cartPrice = price;
 	},
-
+  [SET_TRANSITION_NAME] (state, name) {
+	  state.transitionName = name;
+  }
 }

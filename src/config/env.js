@@ -9,7 +9,7 @@
 
 let baseUrl = '';
 let routerMode = 'history';
-let imgBaseUrl = 'http://images.cangdu.org/';
+let imgBaseUrl = 'http://cangdu.org:8001/img/';
 
 
 if (process.env.NODE_ENV == 'development') {

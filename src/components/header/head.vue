@@ -2,7 +2,7 @@
     <header id='head_top'>
         <slot name='logo'></slot>
         <slot name='search'></slot>
-        <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
+        <section class="head_goback" v-if="goBack" @click="routeBack">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
@@ -24,7 +24,8 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import {mapState, mapActions, mapMutations } from 'vuex'
+    import {setStore, getStore} from '../../config/mUtils'
     export default {
     	data(){
             return{
@@ -45,7 +46,15 @@
         methods: {
             ...mapActions([
                 'getUserInfo'
-            ])
+            ]),
+            ...mapMutations ([
+              'SET_TRANSITION_NAME'
+            ]),
+            routeBack(){
+                this.$router.go(-1);
+                setStore('isRouteBack', true)
+                this.SET_TRANSITION_NAME('slide-right');
+            }
         },
 
     }
@@ -56,7 +65,7 @@
     @import '../../assets/css/mixin';
 
     #head_top{
-        background-color: $blue;
+        background-image: linear-gradient(90deg,#0af,#0085ff);
         position: fixed;
         z-index: 100;
         left: 0;
