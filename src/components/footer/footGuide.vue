@@ -70,7 +70,7 @@
         },
         methods: {
         	gotoAddress(path){
-        		this.$router.push(path)
+        		this.$router.replace(path)
         	}
         },
 

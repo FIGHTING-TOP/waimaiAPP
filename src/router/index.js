@@ -8,6 +8,13 @@ import city from '../components/page/city'
 import msite from '../components/page/msite'
 import search from '../components/page/search'
 import forget from '../components/page/forget'
+import profile from '../components/page/profile'
+import info from '../components/page/profileChildren/info'
+import setusername from '../components/page/profileChildren/setusername.vue'
+import address from '../components/page/profileChildren/children/address'
+import add from '../components/page/profileChildren/children/children/add'
+import addDetail from '../components/page/profileChildren/children/children/children/addDetail.vue'
+import food from '../components/page/food.vue'
 
 Vue.use(VueRouter)
 
@@ -50,7 +57,7 @@ const router =  new VueRouter({
       {
         path: '/msite',
         component: msite,
-        meta: { keepAlive: true }
+        // meta: { keepAlive: true }
       },
       {
         path: '/search/:geohash',
@@ -60,7 +67,35 @@ const router =  new VueRouter({
         path: '/forget',
         component: forget
       },
-
+      {
+        path: '/profile',
+        component: profile,
+        children: [{
+          path: 'info',
+          component: info,
+          children: [{
+            path: 'address',
+            component: address,
+            children: [{
+              path: 'add',
+              component: add,
+              children: [{
+                path: 'addDetail',
+                component: addDetail
+              }]
+            }]
+          }]
+        },
+          {
+            path: 'setusername',
+            component: setusername,
+          },
+        ]
+      },
+      {
+        path: '/food',
+        component: food
+      },
     ]
   }]
 })

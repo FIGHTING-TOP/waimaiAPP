@@ -1,5 +1,5 @@
 <template>
-    <header id='head_top'>
+    <header class='head_top'>
         <slot name='logo'></slot>
         <slot name='search'></slot>
         <section class="head_goback" v-if="goBack" @click="routeBack">
@@ -7,17 +7,17 @@
                 <polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </section>
-        <router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
-            <svg class="user_avatar" v-if="userInfo">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-            </svg>
-            <span class="login_span" v-else>登录 | 注册</span>
-        </router-link>
+        <!--<router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">-->
+            <!--<svg class="user_avatar" v-if="userInfo">-->
+                <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>-->
+            <!--</svg>-->
+            <!--<span class="login_span" v-else>登录 | 注册</span>-->
+        <!--</router-link>-->
         <section class="title_head ellipsis" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </section>
         <slot name="edit"></slot>
-        <slot name="msite-title"></slot>
+        <!--<slot name="msite-title"></slot>-->
         <slot name="changecity"></slot>
         <slot name="changeLogin"></slot>
     </header>
@@ -64,7 +64,7 @@
 <style lang="scss" scoped>
     @import '../../assets/css/mixin';
 
-    #head_top{
+    .head_top{
         background-image: linear-gradient(90deg,#0af,#0085ff);
         position: fixed;
         z-index: 100;
@@ -92,11 +92,11 @@
     }
     .title_head{
         @include center;
-        width: 50%;
+        max-width: 50%;
         color: #fff;
         text-align: center;
         .title_text{
-            @include sc(0.8rem, #fff);
+            @include sc(.8rem, #fff);
             text-align: center;
             font-weight: bold;
         }
