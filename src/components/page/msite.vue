@@ -1,36 +1,37 @@
 <template>
     <div class="msite">
-        <div class="top top_header">
-          <router-link to="/home" class="msite_title">
-            <span class="icon">
-              <svg class="index-2PFNE" style="width: .8rem;height: .8rem;fill: #fff;font-weight: 700;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#location"></use></svg>
-            </span>
-            <span class="title_text ellipsis">{{msiteTitle}}</span>
-          </router-link>
-          <div class="weather">
-            <div class="left"><p>29°</p><p>晴天</p></div>
-            <div class="right"><img src="//fuss10.elemecdn.com/e/85/614c1229282673bb8609909812e76png.png?imageMogr/format/webp/thumbnail/!69x69r/gravity/Center/crop/69x69/" alt="weather"></div>
-          </div>
-        </div>
-        <head-top signin-up='msite' class="search_header">
-          <router-link :to="'/search/' + geohash" class="link_search" slot="search">
-            <div class="icon">
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                <circle cx="8" cy="8" r="7" stroke="rgb(0,0,0)" stroke-width="1" fill="none"/>
-                <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(0,0,0);stroke-width:2"/>
-              </svg>
+          <div class="top_header">
+            <router-link to="/home" class="msite_title">
+              <span class="icon">
+                <svg class="index-2PFNE" style="width: .8rem;height: .8rem;fill: #fff;font-weight: 700;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#location"></use></svg>
+              </span>
+              <span class="title_text ellipsis">{{msiteTitle}}</span>
+            </router-link>
+            <div class="weather">
+              <div class="left"><p>29°</p><p>晴天</p></div>
+              <div class="right"><img src="//fuss10.elemecdn.com/e/85/614c1229282673bb8609909812e76png.png?imageMogr/format/webp/thumbnail/!69x69r/gravity/Center/crop/69x69/" alt="weather"></div>
             </div>
-            <span class="place">搜索商家、商品名称</span>
-          </router-link>
+          </div>
+          <div v-show="area" style="height: 1.9rem;"></div>
+          <head-top signin-up='msite' class="search_header" ref="search">
+            <router-link :to="'/search/' + geohash" class="link_search" slot="search">
+              <div class="icon">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                  <circle cx="8" cy="8" r="7" stroke="rgb(0,0,0)" stroke-width="1" fill="none"/>
+                  <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(0,0,0);stroke-width:2"/>
+                </svg>
+              </div>
+              <span class="place">搜索商家、商品名称</span>
+            </router-link>
           <!--<router-link to="/home" slot="msite-title" class="msite_title">-->
           <!--<span class="title_text ellipsis">{{msiteTitle}}</span>-->
           <!--</router-link>-->
-        </head-top>
-        <div class="header_bottom">
-          <ul class="nav_wrapper">
-            <li v-for="item in 10" :key="item" class="header_nav">快乐柠檬</li>
-          </ul>
-        </div>
+          </head-top>
+          <div class="header_bottom">
+            <ul class="nav_wrapper">
+              <li v-for="item in 10" :key="item" class="header_nav">快乐柠檬</li>
+            </ul>
+          </div>
 
     	<nav class="msite_nav">
     		<div class="swiper-container" v-if="foodTypes.length">
@@ -79,6 +80,7 @@ export default {
             foodTypes: [], // 食品分类列表
             hasGetData: false, //是否已经获取地理位置数据，成功之后再获取商铺列表信息
             imgBaseUrl: 'https://fuss10.elemecdn.com', //图片域名地址
+          area:false,// 占位置的
         }
     },
     async beforeMount(){
@@ -99,6 +101,24 @@ export default {
     	this.hasGetData = true;
     },
     mounted(){
+      let that = this;
+      if (CSS.supports("position", "sticky") || CSS.supports("position", "-webkit-sticky")) {
+        // 支持 sticky
+        this.$refs.search.$el.style.position = 'sticky';
+      }else{
+        this.$refs.search.$el.style.position = 'relative';
+        window.onscroll = function(){
+          setTimeout(function(){
+            if(document.body.scrollTop > 2 * document.documentElement.style.fontSize.slice(0,-2) ){
+              that.$refs.search.$el.style.position = 'fixed';
+              that.area = true;
+            }else{
+              that.$refs.search.$el.style.position = 'relative';
+              that.area = false;
+            }
+          },50)
+        }
+      }
         //获取导航食品类型列表
        	msiteFoodTypes(this.geohash).then(res => {
        		let resLength = res.length;
@@ -149,6 +169,7 @@ export default {
     @import '../../assets/css/mixin';
     .top_header{
       background-image: linear-gradient(90deg,#0af,#0085ff);
+      @include wh(100%, 1.95rem);
       .weather{
         float: right;
         @include wh(16%, 100%);
@@ -174,12 +195,10 @@ export default {
         }
       }
     }
-    .top{
-      @include wh(100%, 1.95rem);
-    }
     .msite .search_header{
       position: sticky;
-      top:-1px;
+      top:0px;
+      z-index: 999;
     }
 
 	.link_search{

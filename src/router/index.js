@@ -15,6 +15,35 @@ import address from '../components/page/profileChildren/children/address'
 import add from '../components/page/profileChildren/children/children/add'
 import addDetail from '../components/page/profileChildren/children/children/children/addDetail.vue'
 import food from '../components/page/food.vue'
+import shop from '../components/page/shop/shop.vue'
+import foodDetail from '../components/page/shop/children/foodDetail'
+import shopDetail from '../components/page/shop/children/shopDetail'
+import shopSafe from '../components/page/shop/children/children/shopSafe'
+import confirmOrder from '../components/page/confirmOrder/confirmOrder.vue'
+import remark from '../components/page/confirmOrder/children/remark.vue'
+import invoice from '../components/page/confirmOrder/children/invoice.vue'
+import payment from '../components/page/confirmOrder/children/payment.vue'
+import userValidation from '../components/page/confirmOrder/children/userValidation.vue'
+import chooseAddress from '../components/page/confirmOrder/children/chooseAddress.vue'
+import addAddress from '../components/page/confirmOrder/children/children/addAddress.vue'
+import searchAddress from '../components/page/confirmOrder/children/children/children/searchAddress.vue'
+import vipcard from '../components/page/vipcard/vipcard.vue'
+import invoiceRecord from '../components/page/vipcard/children/invoiceRecord.vue'
+import useCart from '../components/page/vipcard/children/useCart.vue'
+import vipDescription from '../components/page/vipcard/children/vipDescription.vue'
+import order from '../components/page/order/order.vue'
+import orderDetail from '../components/page/order/children/orderDetail.vue'
+import download from '../components/page/download.vue'
+import balance from '../components/page/balance/balance.vue'
+import balanceDetail from '../components/page/balance/children/detail.vue'
+import benefit from '../components/page/benefit/benefit.vue'
+import coupon from '../components/page/benefit/children/coupon.vue'
+import hbDescription from '../components/page/benefit/children/hbDescription.vue'
+import hbHistory from '../components/page/benefit/children/hbHistory.vue'
+import exchange from '../components/page/benefit/children/exchange.vue'
+import commend from '../components/page/benefit/children/commend.vue'
+import points from '../components/page/points/points.vue'
+import pointsDetail from '../components/page/points/children/detail.vue'
 
 Vue.use(VueRouter)
 
@@ -95,6 +124,111 @@ const router =  new VueRouter({
       {
         path: '/food',
         component: food
+      },
+      {
+        path: '/shop',
+        component: shop,
+        children: [{
+          path: 'foodDetail', //食品详情页
+          component: foodDetail,
+        }, {
+          path: 'shopDetail', //商铺详情页
+          component: shopDetail,
+          children: [{
+            path: 'shopSafe', //商铺安全认证页
+            component: shopSafe,
+          }, ]
+        }]
+      },
+      {
+        path: '/confirmOrder',
+        component: confirmOrder,
+        children: [{
+          path: 'remark', //订单备注
+          component: remark,
+        }, {
+          path: 'invoice', //发票抬头
+          component: invoice,
+        }, {
+          path: 'payment', //付款页面
+          component: payment,
+        }, {
+          path: 'userValidation', //用户验证
+          component: userValidation,
+        }, {
+          path: 'chooseAddress', //选择地址
+          component: chooseAddress,
+          children: [{
+            path: 'addAddress', //添加地址
+            component: addAddress,
+            children: [{
+              path: 'searchAddress', //搜索地址
+              component: searchAddress,
+            }]
+          }, ]
+        }, ]
+      },
+      {
+        path: '/vipcard',
+        component: vipcard,
+        children: [{
+          path: 'invoiceRecord', //开发票
+          component: invoiceRecord,
+        }, {
+          path: 'useCart', //购买会员卡
+          component: useCart,
+        }, {
+          path: 'vipDescription', //会员说明
+          component: vipDescription,
+        },]
+      },
+      {
+        path: '/order',
+        component: order,
+        children: [{
+          path: 'orderDetail', //订单详情页
+          component: orderDetail,
+        }, ]
+      },
+      {
+        path: '/download',
+        component: download
+      },
+      {
+        path: 'balance',
+        component: balance,
+        children: [{
+          path: 'detail', //余额说明
+          component: balanceDetail,
+        }, ]
+      },
+      {
+        path: 'benefit',
+        component: benefit,
+        children: [{
+          path: 'coupon', //代金券说明
+          component: coupon,
+        }, {
+          path: 'hbDescription', //红包说明
+          component: hbDescription,
+        }, {
+          path: 'hbHistory', //历史红包
+          component: hbHistory,
+        }, {
+          path: 'exchange', //兑换红包
+          component: exchange,
+        }, {
+          path: 'commend', //推荐有奖
+          component: commend,
+        },]
+      },
+      {
+        path: 'points',
+        component: points,
+        children: [{
+          path: 'detail', //积分说明
+          component: pointsDetail,
+        }, ]
       },
     ]
   }]
