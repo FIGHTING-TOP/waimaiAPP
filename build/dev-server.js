@@ -42,6 +42,7 @@ switch(process.env.NODE_ENV){
     // case 'online': var proxypath = 'http://localhost:8001'; break;
     default:  var proxypath = config.dev.proxypath;
 }
+
 var options = {
     target: proxypath,
     changeOrigin: true,
